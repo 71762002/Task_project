@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Category, Product, LikeDislike
+from rest_framework.response import Response
+
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -13,8 +15,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    
-
     class Meta:
         model = Product
         fields = ("id", "name", "price", "description", "image", "category")
@@ -64,7 +64,6 @@ class LikeDislikeSerializer(serializers.ModelSerializer):
     """
 
     
-
 
 
 

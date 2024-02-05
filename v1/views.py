@@ -10,21 +10,11 @@ from django.db.models import Q
 
 
 
-class CategoryAPi(APIView):
-    def post(self, request, *args, **kwargs):
-        serializer = CategorySerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-    
-    def get(self, request):
-        categorys= Category.objects.order_by("-id").values("id", "title")
-        
-        return Response({
-            "status" : "True",
-            "categorys" : categorys
-            
-        })
+class CategoryAPi(ListCreateAPIView):
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
+
+  
     
     
 class CategoryDetailAPi(RetrieveUpdateDestroyAPIView):
@@ -39,7 +29,6 @@ class CategoryDetailAPi(RetrieveUpdateDestroyAPIView):
 
 
 class ProductApi(ListCreateAPIView):
-  
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
@@ -52,7 +41,8 @@ class ProductUpdateDelete(RetrieveUpdateDestroyAPIView):
      
         
 class ProductSearch(APIView):
-     def get(self, request, *args, **kwargs):
+    
+    def get(self, request, *args, **kwargs):
         params = self.request.query_params
         q = params.get("q")
         
@@ -67,7 +57,7 @@ class ProductSearch(APIView):
             
         serializer = ProductSerializer(queryset, many=True, context ={"request" : request})
         return Response(serializer.data)
-    
+
 
 
 
