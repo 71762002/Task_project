@@ -1,15 +1,3 @@
-# Task_project
-Product, Category, Crud, Like, Dislike
-
-
-Prayekt haqida qisqacha tavsif!!!
-Foydalanuvchi Gmail orqali ro'yxatdan o'tadi va Token oladi!
-Mahsulot kategoriyasiga qarab tanlab oladi va yoqqan yoqmaganligini ham bildirib ketadi!!!
-
-
-
-
-
 asgiref==3.7.2
 certifi==2023.11.17
 charset-normalizer==3.3.2
@@ -39,5 +27,3 @@ sqlparse==0.4.4
 uritemplate==4.1.1
 urllib3==2.2.0
 virtualenv==20.25.0
-
-

@@ -1,11 +1,10 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .serializers import UserRegisterSerializer
+from .serializers import UserLoginSerializer, UserRegisterSerializer
 from rest_framework.response import Response
-from rest_framework.status import HTTP_400_BAD_REQUEST
+from rest_framework.generics import CreateAPIView
 
-from django.contrib.auth import authenticate
-from rest_framework.authtoken.models import Token
+
 
 
 
@@ -24,27 +23,8 @@ class UserRegisterAPi(APIView):
         return Response(serializer.data)
     
 
-class UserLoginAPi(APIView):
 
-    """
-    UserLoginAPi classda post() funksiyamiz request qabul qilib ya'ni registratsiyadan o'tgan ma'lumotlarni tekshiradi va login qilib token qaytaradi
-    """
-    def post(self, request):
-        data = request.data
-        email = data.get("email")
-        password = data.get("password")
-        if not password or not email:
-            return Response({
-                "error" : "Email yoki password mavjud emas!"
-            },status=HTTP_400_BAD_REQUEST)
-        
-        data = {"email" : email, "password" : password}
-        user = authenticate(request, **data)
-        if not user:
-            return Response({
-                "error" : "Bunday foydalanuvchi yo'q!"
-            })
-        token, _ = Token.objects.get_or_create(user=user)
-        return Response({
-            "token" : token.key
-        })
+class UserLoginAPi(CreateAPIView):
+    serializer_class = UserLoginSerializer
+
+  
